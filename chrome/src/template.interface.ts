@@ -1,5 +1,5 @@
 export default interface Template {
     id?: number;
-    keystroke: string;
+    key: string;
     value: string;
 }

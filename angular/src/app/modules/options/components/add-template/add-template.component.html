@@ -1,0 +1,21 @@
+<form class="template-form" [formGroup]="templateForm" (ngSubmit)="submit()">
+  <div
+    formArrayName="templates"
+    *ngFor="let template of templateForm.get('templates')['controls']; let i = index; last as isLast"
+  >
+    <div [formGroupName]="i">
+      <mat-form-field class="template-form-field-width">
+        <mat-label>Key</mat-label>
+        <input matInput placeholder="Hotkey to replace" formControlName="key">
+      </mat-form-field>
+      <br/>
+      <mat-form-field class="template-form-field-width">
+        <mat-label>Replace with</mat-label>
+        <textarea matInput placeholder="Template" formControlName="value"></textarea>
+      </mat-form-field>
+      <hr *ngIf="!isLast"/>
+    </div>
+  </div>
+  <button mat-raised-button color="primary" (click)="addEmptyTemplateForm(); $event.preventDefault()">Add item</button>
+  <button mat-raised-button color="primary">Save</button>
+</form>

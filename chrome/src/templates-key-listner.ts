@@ -21,9 +21,9 @@ export function registerTemplateHandlers() {
             buffer += event.key;
 
             data['templates']?.forEach((template: Template) => {
-                if (buffer.includes(template.keystroke)) {
+                if (buffer.includes(template.key)) {
                     const inputValue = (<HTMLInputElement>document.activeElement).value;
-                    (<HTMLInputElement>document.activeElement).value = inputValue.replace(template.keystroke, template.value);
+                    (<HTMLInputElement>document.activeElement).value = inputValue.replace(template.key, template.value);
                     buffer = '';
                 }
             });

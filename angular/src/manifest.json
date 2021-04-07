@@ -3,7 +3,6 @@
   "name": "quick-type-browser-extension",
   "short_name": "quick-type-browser-extension",
   "version": "1.0.0",
-  "description": "Generated with @larscom/ng-chrome-extension",
   "permissions": [
     "storage"
   ],
