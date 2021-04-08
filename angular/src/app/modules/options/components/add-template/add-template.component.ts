@@ -1,9 +1,8 @@
-import {ChangeDetectorRef, Component, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import Template from '../../../../../../../chrome/src/template.interface';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {EventEmitter} from '@angular/core';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import * as _ from 'lodash';
+import {TemplateService} from '../../services/template.service';
 
 @Component({
   selector: 'app-add-template',
@@ -12,12 +11,12 @@ import * as _ from 'lodash';
 })
 export class AddTemplateComponent implements OnInit {
 
-  @Input() public templates$: Observable<Template[]>;
-  @Output() public newTemplateEvent = new EventEmitter<Template>();
+  private templates$: Observable<Template[]>;
 
   public templateForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private changeDetector: ChangeDetectorRef) {
+  constructor(private formBuilder: FormBuilder, private changeDetector: ChangeDetectorRef, private templateService: TemplateService) {
+    this.templates$ = this.templateService.templates$;
     this.templateForm = this.formBuilder.group({
       templates: this.formBuilder.array([])
     });
@@ -40,12 +39,12 @@ export class AddTemplateComponent implements OnInit {
   private createTemplateForm(template?: Template): FormGroup {
     return this.formBuilder.group({
       id: new FormControl(this.getTemplatesFormArray()?.length || 0),
-      key: new FormControl(template?.key || ''),
-      value: new FormControl(template?.value || '')
+      key: new FormControl(template?.key || '', Validators.required),
+      value: new FormControl(template?.value || '', Validators.required)
     });
   }
 
-  private getTemplatesFormArray(): FormArray | undefined {
+  public getTemplatesFormArray(): FormArray | undefined {
     return this.templateForm?.get('templates') as FormArray;
   }
 
@@ -55,7 +54,16 @@ export class AddTemplateComponent implements OnInit {
     }
   }
 
+  public delete(templateId: number, formArrayIndex: number): void {
+    this.templateService.deleteTemplate(templateId);
+    this.getTemplatesFormArray().removeAt(formArrayIndex);
+  }
+
+  public deleteAllTemplates(): void {
+    this.templateService.deleteAllTemplates();
+  }
+
   public submit(): void {
-    this.newTemplateEvent.emit(this.templateForm.value.templates);
+    this.templateService.saveTemplates(this.templateForm.value.templates);
   }
 }

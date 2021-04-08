@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import Template from '../../../../../../chrome/src/template.interface';
 import {BehaviorSubject} from 'rxjs';
+import {take} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,12 @@ export class TemplateService {
   public saveTemplates(templates: Template[]): void {
     chrome.storage.sync.set({templates});
     this.syncTemplates();
+  }
+
+  public deleteTemplate(templateId: number): void {
+    this.templates$.pipe(take(1)).subscribe((templates) => {
+      this.saveTemplates(templates.filter((template) => template.id !== templateId));
+    })
   }
 
   public deleteAllTemplates(): void {

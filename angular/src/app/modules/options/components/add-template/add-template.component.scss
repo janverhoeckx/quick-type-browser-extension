@@ -1,3 +1,30 @@
 .template-form-field-width {
   width: 100%;
 }
+
+.template-form {
+  margin-bottom: 1em;
+}
+
+.template-form-button {
+  margin-right: 1em;
+}
+
+.template-options-bar {
+  display: flex;
+  justify-content: left;
+  margin-bottom: 1em;
+}
+
+.template-form-delete-button {
+  margin-left: auto;
+}
+
+.template-form-buttons {
+  display: flex;
+  justify-content: left;
+}
+
+#delete-all-templates-button {
+  margin-left: auto;
+}

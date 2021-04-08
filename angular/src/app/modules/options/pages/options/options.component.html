@@ -1,12 +1,7 @@
 <div class="row flex">
   <div class="column">
-    <h1 style="text-align:center">Options</h1>
-    <app-add-template [templates$]="templates" (newTemplateEvent)="saveTemplates($event)"></app-add-template>
+    <h1 style="text-align:center">Templates</h1>
+    <app-add-template></app-add-template>
     <br/>
-  </div>
-</div>
-<div class="row flex">
-  <div class="column">
-    <button mat-raised-button color="warn" (click)="deleteAllTemplates()">Delete all templates</button>
   </div>
 </div>
