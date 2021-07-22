@@ -1,7 +1,7 @@
 {
   "name": "quick-type-browser-extension",
   "version": "1.0.0",
-  "description": "Generated with @larscom/ng-chrome-extension",
+  "description": "Browser extension for quick templates",
   "scripts": {
     "ng": "ng",
     "start": "npm run watch",
