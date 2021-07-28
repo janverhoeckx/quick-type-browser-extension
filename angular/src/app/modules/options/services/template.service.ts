@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import Template from '../../../../../../chrome/src/template.interface';
+import Template from '../../../../chrome/template.interface';
 import {BehaviorSubject} from 'rxjs';
 import {take} from "rxjs/operators";
 

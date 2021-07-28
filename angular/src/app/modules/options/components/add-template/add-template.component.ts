@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import Template from '../../../../../../../chrome/src/template.interface';
+import Template from '../../../../../chrome/template.interface';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {TemplateService} from '../../services/template.service';
