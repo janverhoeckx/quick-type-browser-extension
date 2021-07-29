@@ -4,75 +4,97 @@
   "newProjectRoot": "projects",
   "projects": {
     "angular-chrome-extension": {
-      "root": "angular",
-      "sourceRoot": "angular/src",
       "projectType": "application",
-      "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "sass"
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
         }
       },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
-            "aot": true,
-            "outputPath": "angular/dist",
-            "index": "angular/src/index.html",
-            "main": "angular/src/main.ts",
-            "polyfills": "angular/src/polyfills.ts",
-            "tsConfig": "angular/src/tsconfig.app.json",
+            "customWebpackConfig": {
+              "path": "./custom-webpack.config.ts"
+            },
+            "outputPath": "dist/angular-chrome-extension",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
-              "angular/src/manifest.json",
-              "angular/src/assets"
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.json"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
-              "angular/src/styles.scss"
+              "src/styles.scss",
+              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css"
             ],
             "scripts": []
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "angular/src/environments/environment.ts",
-                  "with": "angular/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
                 }
-              ]
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "none",
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              }
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "customWebpackConfig": {
+                "path": "./custom-webpack-dev.config.ts"
+              }
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "angular-chrome-extension:build"
-          },
           "configurations": {
             "production": {
               "browserTarget": "angular-chrome-extension:build:production"
+            },
+            "development": {
+              "browserTarget": "angular-chrome-extension:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -80,22 +102,26 @@
             "browserTarget": "angular-chrome-extension:build"
           }
         },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": [
-              "angular/src/tsconfig.app.json"
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
           }
         }
       }
     }
   },
-  "defaultProject": "angular-chrome-extension",
-  "cli": {
-    "analytics": false
-  }
+  "defaultProject": "angular-chrome-extension"
 }
