@@ -26,7 +26,7 @@ export class AddTemplateComponent implements OnInit {
     this.templates$.subscribe({
       next: (templates) => {
         this.resetFormArray();
-        templates?.forEach((template) => this.getTemplatesFormArray()?.push(this.createTemplateForm(template)));
+        templates?.forEach((template) => this.getTemplatesFormArray().push(this.createTemplateForm(template)));
         this.changeDetector.detectChanges();
       }
     });
@@ -37,32 +37,30 @@ export class AddTemplateComponent implements OnInit {
   }
 
   public addEmptyTemplateForm(): void {
-    console.log("add")
-    console.log(this.templateForm)
-    this.getTemplatesFormArray()?.push(this.createTemplateForm());
+    this.getTemplatesFormArray().push(this.createTemplateForm());
   }
 
   private createTemplateForm(template?: Template): FormGroup {
     return this.formBuilder.group({
-      id: new FormControl(this.getTemplatesFormArray()?.length || 0),
+      id: new FormControl(this.getTemplatesFormArray().length || 0),
       key: new FormControl(template?.key || '', Validators.required),
       value: new FormControl(template?.value || '', Validators.required)
     });
   }
 
-  public getTemplatesFormArray(): FormArray | undefined {
-    return this.templateForm?.get('templates') as FormArray;
+  public getTemplatesFormArray(): FormArray {
+    return this.templateForm.get('templates') as FormArray;
   }
 
   private resetFormArray(): void {
-    while (this.getTemplatesFormArray()?.length !== 0) {
-      this.getTemplatesFormArray()?.removeAt(0)
+    while (this.getTemplatesFormArray().length !== 0) {
+      this.getTemplatesFormArray().removeAt(0)
     }
   }
 
   public delete(templateId: number, formArrayIndex: number): void {
     this.templateService.deleteTemplate(templateId);
-    this.getTemplatesFormArray()?.removeAt(formArrayIndex);
+    this.getTemplatesFormArray().removeAt(formArrayIndex);
   }
 
   public deleteAllTemplates(): void {
