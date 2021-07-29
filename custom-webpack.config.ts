@@ -1,5 +1,10 @@
-import type { Configuration } from 'webpack';
+import { Configuration } from 'webpack';
 
 module.exports = {
-    entry: { background: 'src/chrome/backgroundPage.ts' },
+  entry: {
+    contentScript: 'src/chrome/content-script.ts'
+  },
+  optimization: {
+    runtimeChunk: false
+  }
 } as Configuration;

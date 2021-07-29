@@ -1,0 +1,22 @@
+{
+  "name": "Quick type browser extension",
+  "version": "0.1.0",
+  "description": "Replace keywords with templates as you type.",
+  "manifest_version": 3,
+  "permissions": [
+    "activeTab",
+    "webNavigation",
+    "storage"
+  ],
+  "options_page": "index.html?#/options",
+  "content_scripts": [
+    {
+      "js": [
+        "contentScript.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}
