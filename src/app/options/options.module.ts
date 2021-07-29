@@ -7,10 +7,22 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDividerModule} from '@angular/material/divider';
 import {AddTemplateComponent} from './components/add-template/add-template.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import { SaveSuccessfullComponent } from './components/snackbar/save-successfull/save-successfull.component';
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
-  declarations: [OptionsComponent, AddTemplateComponent],
-  imports: [CommonModule, OptionsRoutingModule, MatButtonModule, MatInputModule, ReactiveFormsModule, MatDividerModule]
+  declarations: [OptionsComponent, AddTemplateComponent, SaveSuccessfullComponent],
+  imports: [
+    CommonModule,
+    OptionsRoutingModule,
+    MatButtonModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatDividerModule,
+    MatToolbarModule,
+    MatSnackBarModule
+  ]
 })
 export class OptionsModule {
 }

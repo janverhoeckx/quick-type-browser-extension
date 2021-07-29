@@ -1,8 +1,9 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {TemplateService} from '../../services/template.service';
 import Template from "../../../../chrome/template.interface";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-add-template',
@@ -15,7 +16,12 @@ export class AddTemplateComponent implements OnInit {
 
   public templateForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private changeDetector: ChangeDetectorRef, private templateService: TemplateService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private changeDetector: ChangeDetectorRef,
+    private templateService: TemplateService,
+    private snackBar: MatSnackBar
+  ) {
     this.templates$ = this.templateService.templates$;
     this.templateForm = this.formBuilder.group({
       templates: this.formBuilder.array([])
@@ -69,5 +75,10 @@ export class AddTemplateComponent implements OnInit {
 
   public submit(): void {
     this.templateService.saveTemplates(this.templateForm.value.templates);
+    this.snackBar.open("Saved!", "Ok", {
+      duration: 3000,
+      horizontalPosition: "center",
+      verticalPosition: "top"
+    });
   }
 }
