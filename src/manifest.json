@@ -18,5 +18,8 @@
         "<all_urls>"
       ]
     }
-  ]
+  ],
+  "icons": {
+    "128": "assets/typewriter.png"
+  }
 }
