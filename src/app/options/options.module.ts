@@ -9,9 +9,11 @@ import {AddTemplateComponent} from './components/add-template/add-template.compo
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
-  declarations: [OptionsComponent, AddTemplateComponent],
+  declarations: [OptionsComponent, AddTemplateComponent, ConfirmationDialogComponent],
   imports: [
     CommonModule,
     OptionsRoutingModule,
@@ -20,7 +22,8 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     ReactiveFormsModule,
     MatDividerModule,
     MatToolbarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
   ]
 })
 export class OptionsModule {

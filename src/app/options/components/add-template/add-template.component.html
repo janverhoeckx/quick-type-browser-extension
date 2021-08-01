@@ -15,7 +15,7 @@
       </mat-form-field>
       <div class="template-options-bar">
         <span></span>
-        <button mat-raised-button color="warn" (click)="delete(template.value.id, i)" class="template-form-delete-button">Delete</button>
+        <button mat-raised-button color="warn" (click)="delete(template.value.id, i); $event.preventDefault()" class="template-form-delete-button">Delete</button>
       </div>
       <mat-divider></mat-divider>
     </div>
@@ -23,7 +23,7 @@
   <div class="template-form-buttons">
     <button mat-raised-button color="primary" (click)="addEmptyTemplateForm(); $event.preventDefault()" class="template-form-button">Add template</button>
     <button mat-raised-button color="primary" class="template-form-button">Save</button>
-    <button mat-raised-button color="warn" class="template-form-button" id="delete-all-templates-button" (click)="deleteAllTemplates()">Delete all
+    <button mat-raised-button color="warn" class="template-form-button" id="delete-all-templates-button" (click)="deleteAllTemplates(); $event.preventDefault()">Delete all
       templates
     </button>
   </div>
