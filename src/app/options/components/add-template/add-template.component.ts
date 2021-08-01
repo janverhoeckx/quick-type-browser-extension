@@ -4,6 +4,8 @@ import {Observable} from 'rxjs';
 import {TemplateService} from '../../services/template.service';
 import Template from "../../../../chrome/template.interface";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: 'app-add-template',
@@ -20,7 +22,8 @@ export class AddTemplateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private changeDetector: ChangeDetectorRef,
     private templateService: TemplateService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {
     this.templates$ = this.templateService.templates$;
     this.templateForm = this.formBuilder.group({
@@ -65,12 +68,20 @@ export class AddTemplateComponent implements OnInit {
   }
 
   public delete(templateId: number, formArrayIndex: number): void {
-    this.templateService.deleteTemplate(templateId);
-    this.getTemplatesFormArray().removeAt(formArrayIndex);
+    this.dialog.open(ConfirmationDialogComponent, {data: "Delete template?"}).afterClosed().subscribe(result => {
+      if (result === 'OK') {
+        this.templateService.deleteTemplate(templateId);
+        this.getTemplatesFormArray().removeAt(formArrayIndex);
+      }
+    });
   }
 
   public deleteAllTemplates(): void {
-    this.templateService.deleteAllTemplates();
+    this.dialog.open(ConfirmationDialogComponent, {data: "Delete all templates?"}).afterClosed().subscribe(result => {
+      if (result === 'OK') {
+        this.templateService.deleteAllTemplates();
+      }
+    });
   }
 
   public submit(): void {

@@ -1,5 +1,5 @@
 # QuickType browser extension
-
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=janverhoeckx_quick-type-browser-extension&metric=alert_status)](https://sonarcloud.io/dashboard?id=janverhoeckx_quick-type-browser-extension)
 ## Installing and Running
 1. Run `npm install` to install the dependencies.
 2. Run `npm build` to build the extension
